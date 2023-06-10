@@ -29,4 +29,10 @@
       <weight>73</weight>
       <height>175</height>
    </person>
-<person id="6"><name>Paul Pili</name><age>69</age><weight>45</weight><height>164</height></person></group>
+   <person id="6">
+      <name>Paul Pili</name>
+      <age>69</age>
+      <weight>45</weight>
+      <height>164</height>
+   </person>
+</group>
