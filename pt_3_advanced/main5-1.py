@@ -33,5 +33,5 @@ Person.mymethod()
 p1.mymethod()
 
 
-def dosth(param: list[int]):
+def dosth(param: list[int]): #type hinting for lists
     pass
