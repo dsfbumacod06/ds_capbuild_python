@@ -38,3 +38,8 @@ class PersonSingleton:
 
 p = PersonSingleton("Mike",30)
 p.print_data()
+
+
+# p1 = PersonSingleton("Jennifer", 42)
+p2 = PersonSingleton.get_instance()
+print(p2.name)
