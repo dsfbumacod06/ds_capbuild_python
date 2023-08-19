@@ -1,0 +1,1 @@
+There iterators are terminated on the shortest input sequence.
