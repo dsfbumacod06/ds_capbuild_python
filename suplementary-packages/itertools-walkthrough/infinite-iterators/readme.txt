@@ -1,0 +1,1 @@
+These are iterators that generate an infinite amount of values. Break statements are necessary.

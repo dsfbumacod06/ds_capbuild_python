@@ -33,56 +33,56 @@ arr = [0, 1, 0, 0, 0, 0] yields 3
 
 
 # Video Code
-# def array_erasing(lst):
-#     if len(lst) == 0:
-#         return 0
-#     if len(lst) == 1:
-#         return 1
-#     consecutive_streaks = []
-#     idx = 0
-#     while idx < len(lst) - 1:
-#         if lst[idx] == lst[idx + 1]:
-#             opposite = 0 if lst[idx] == 1 else 1
-#             if opposite in lst[idx:]:
-#                 opposite_index = idx + lst[idx:].index(opposite)
-#                 consecutive_streaks.append((idx, opposite_index-1))
-#                 idx = opposite_index
-#             else:
-#                 consecutive_streaks.append((idx, len(lst)-1))
-#                 idx = len(lst) - 1
-#         else:
-#             idx += 1
-#     if consecutive_streaks == []:
-#         if len(lst) > 2:
-#             return 1 + array_erasing(lst[0:0] + lst[2:])
-#         else:
-#             return 2
-#     steps = []
-#     for streak in consecutive_streaks:
-#         steps.append(1 + array_erasing(lst[:streak[0]] + lst[streak[1]+1:]))
-#     # print(steps)
-#     return min(steps)
+def array_erasing(lst):
+    if len(lst) == 0:
+        return 0
+    if len(lst) == 1:
+        return 1
+    consecutive_streaks = []
+    idx = 0
+    while idx < len(lst) - 1:
+        if lst[idx] == lst[idx + 1]:
+            opposite = 0 if lst[idx] == 1 else 1
+            if opposite in lst[idx:]:
+                opposite_index = idx + lst[idx:].index(opposite)
+                consecutive_streaks.append((idx, opposite_index-1))
+                idx = opposite_index
+            else:
+                consecutive_streaks.append((idx, len(lst)-1))
+                idx = len(lst) - 1
+        else:
+            idx += 1
+    if consecutive_streaks == []:
+        if len(lst) > 2:
+            return 1 + array_erasing(lst[0:0] + lst[2:])
+        else:
+            return 2
+    steps = []
+    for streak in consecutive_streaks:
+        steps.append(1 + array_erasing(lst[:streak[0]] + lst[streak[1]+1:]))
+    # print(steps)
+    return min(steps)
 
 
 # solution code
-from itertools import groupby
+# from itertools import groupby
 
 
-def array_erasing(lst):
-    a = [len(tuple(g)) for _, g in groupby(lst)]
-    n = 1
-    return a
+# def array_erasing(lst):
+#     a = [len(tuple(g)) for _, g in groupby(lst)]
+#     n = 1
+#     return a
 
 
 if __name__ == "__main__":
     arr = [0, 1, 1, 1, 0, 0]  # 2
-    # print(array_erasing(arr))
-    for key, group in groupby(arr):
-        print(f'key: {key}, group: {tuple(group)}')
-    # arr = [0, 1, 0, 0, 0, 0]  # 3
-    # print(array_erasing(arr))
-    # arr = [0, 0, 0, 1, 1, 1, 1, 0, 1, 1]  # 3
-    # print(array_erasing(arr))
+    print(array_erasing(arr))
+    # for key, group in groupby(arr):
+    #     print(f'key: {key}, group: {tuple(group)}')
+    arr = [0, 1, 0, 0, 0, 0]  # 3
+    print(array_erasing(arr))
+    arr = [0, 0, 0, 1, 1, 1, 1, 0, 1, 1]  # 3
+    print(array_erasing(arr))
     # arr = [0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0]
     # print(array_erasing(arr))
     # arr = [1, 0, 1, 0, 1, 0]
