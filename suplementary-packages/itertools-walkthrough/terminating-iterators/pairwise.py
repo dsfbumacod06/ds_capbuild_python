@@ -1,0 +1,6 @@
+'''
+pairwise
+'''
+
+import itertools
+
