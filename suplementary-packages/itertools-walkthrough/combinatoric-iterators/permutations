@@ -1,0 +1,17 @@
+'''
+Permutations
+    - gets the permuations of a list
+    - all the ways a set can be arranged
+    - results may contain the same elements but different arrangements
+    - takes a length argument
+'''
+
+import itertools
+
+lst = ['A', 'B', 'C']
+
+permutations = itertools.permutations(lst, 2)
+# print(list(permutations))
+
+for p in permutations:
+    print(*p, sep = ' : ')
