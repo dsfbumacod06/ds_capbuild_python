@@ -14,4 +14,4 @@ permutations = itertools.permutations(lst, 2)
 # print(list(permutations))
 
 for p in permutations:
-    print(*p, sep = ' : ')
+    print(*p, sep=' : ')
