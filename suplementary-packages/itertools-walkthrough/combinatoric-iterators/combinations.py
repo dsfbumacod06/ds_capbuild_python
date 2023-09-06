@@ -8,9 +8,11 @@ Combinations with Replacement
 import itertools
 
 
-l = [0, 1, 2, 3, 4]
+# l = [0, 1, 2, 3, 4]
+l = 'bcf'
+l2 = 'bcbcf'
 
-# combinations = itertools.combinations(l, 3)
-combinations = itertools.combinations_with_replacement(l, 3)
+combinations = itertools.combinations(l, 2)
+# combinations = itertools.combinations_with_replacement(l, 2)
 for c in list(combinations):
     print(*c, sep=' : ')
