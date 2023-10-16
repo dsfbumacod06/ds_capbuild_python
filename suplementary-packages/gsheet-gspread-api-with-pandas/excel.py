@@ -86,7 +86,7 @@ def main():
         content = BytesIO(body)
         wkb = load_workbook(content, data_only=True)
         wks = wkb['SPIEL']
-        
+        # print(list(wks.columns))
         
         data = wks.values
         cols = next(data)
@@ -103,18 +103,21 @@ def main():
         'TEST BED 2\nhttps://10.237.196.74:4432/LinkWorkbench/', 
        'Character Count']].astype(int)
        
-        # print(df.columns)
-        for column in df.columns:
-            print(f"----- COLUMN {column} -------")
-            print(df[column])
+    #     # print(df.columns)
+    #     for column in df.columns:
+    #         print(f"----- COLUMN {column} -------")
+    #         print(df[column])
             
-        df_validation = df.isin(["", None, 0])  # checks which cells are null
-        print(all(df_validation['PROD MPID']))
-        print(all(df_validation['Status']))
-        print(any(df_validation['New Spiel']))
-        print(any(df_validation['Message Name']))
+        # df_validation = df.isin(["", None, 0])  # checks which cells are null
+        # print(all(df_validation['PROD MPID']))
+        # print(all(df_validation['Status']))
+        # print(any(df_validation['New Spiel']))
+        # print(any(df_validation['Message Name']))
         df.reset_index(inplace=True)
         pprint(df.to_dict('records'))
+    
+    
+    
         # if not all(df_validation['PROD MPID']):  # should be true
         #     return False
         # if not all(df_validation['Status']):     # should be true

@@ -47,48 +47,42 @@ def main():
     # spread_id = '1vVl2H_wPMU8wet5KDzmliLvUJhaCiNH_'  # .xlsx -> microsoft excel format
     spread_id = '1PpyCS3IPHqq2CZ_k3Y7dTs-H-Yty3IQjVTuuJraE2g4'  # spreadsheet
     try:
-        # gsheet_credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE,
-        #                                                                            scopes=GSHEET_SCOPE)
+        gsheet_credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE,
+                                                                                   scopes=GSHEET_SCOPE)
         
-        sa = gspread.service_account(filename=SERVICE_ACCOUNT_FILE)
-        sh = sa.open_by_key(spread_id)
-        wks = sh.worksheet('SPIEL')
-        # print(wks.get_all_records())
-        df = pd.DataFrame(wks.get_all_records())
-    
-        columns = df.columns
-        df_validation = df.isin(["", None, 0])
+        # pprint(df.to_dict('records'))
         
-        pprint(df.to_dict('records'))
-        
-        # service = build("sheets", "v4", credentials=gsheet_credentials)
+        service = build("sheets", "v4", credentials=gsheet_credentials)
         
         
-        # response = service.spreadsheets().values().get(spreadsheetId=spread_id,
-        #                                                 majorDimension="ROWS",
-        #                                                 range='SPIEL').execute()    
-        # # print(response.values()) 
-        # columns = response['values'][0]
+        response = service.spreadsheets().values().get(spreadsheetId=spread_id,
+                                                        majorDimension="ROWS",
+                                                        range='SPIEL').execute()    
+        # print(response.values()) 
+        
+        columns = response['values'][0]
         # if columns != ['TEST BED 1\nhttps://10.66.9.88:4432/LinkWorkbench/', 'TEST BED 2\nhttps://10.237.196.74:4432/LinkWorkbench/', 'PROD MPID', 'Message Name', 'Current Spiel', 'New Spiel', 'Status', 'Character Count']:
         #     raise Exception("Columns must be of values ['TEST BED 1\nhttps://10.66.9.88:4432/LinkWorkbench/', 'TEST BED 2\nhttps://10.237.196.74:4432/LinkWorkbench/', 'PROD MPID', 'Message Name', 'Current Spiel', 'New Spiel', 'Status', 'Character Count']")
-        # data = response['values'][1:]
-        # df = pd.DataFrame(data, columns=columns)
-        # df_validation = df.isin(["", None, 0])  # checks which cells are null
-        # if not all(df_validation['PROD MPID']):  # should be true
-        #     return False
-        # if not all(df_validation['Status']):     # should be true
-        #     return False
-        # if any(df_validation['New Spiel']):  # should be false
-        #     return False
-        # if any(df_validation['Message Name']):  #should be false
-        #     return False
+        data = response['values'][1:]
+        df = pd.DataFrame(data, columns=columns)
+        df_validation = df.isin(["", None, 0])  # checks which cells are null
+        if not all(df_validation['PROD MPID']):  # should be true
+            return False
+        if not all(df_validation['Status']):     # should be true
+            return False
+        if any(df_validation['New Spiel']):  # should be false
+            return False
+        if any(df_validation['Message Name']):  #should be false
+            return False
+        df.reset_index(inplace=True)
+        return df.to_dict('records')
         # return True
 
         
-        # print(columns)
-        for column in columns:
-            print(f"----- COLUMN {column} -------")
-            print(df[column])
+        # # print(columns)
+        # for column in columns:
+        #     print(f"----- COLUMN {column} -------")
+        #     print(df[column])
         
     except Exception as error:
         # TODO(developer) - Handle errors from drive API.
@@ -96,4 +90,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    pprint(main())
